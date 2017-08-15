@@ -16,6 +16,7 @@ namespace ArcTouch.TestDevelopment.ViewModels
     public class MainPageViewModel : BindableBase, INavigationAware
     {
         private IPageDialogService _dialogService;
+        private INavigationService _navigationService;
         public ObservableCollection<Movie> UpcomingMovies { get; set; }
 
         private bool _runningOperation;
@@ -32,21 +33,44 @@ namespace ArcTouch.TestDevelopment.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public MainPageViewModel(IPageDialogService dialogService)
+        private Movie _selectedMovie;
+        public Movie SelectedMovie
+        {
+            get { return _selectedMovie; }
+            set
+            {
+                if (SetProperty(ref _selectedMovie, value))
+                    MovieDetails();
+            }
+        }
+
+        public DelegateCommand MovieDetailsCommand { get; set; }
+
+        public MainPageViewModel(IPageDialogService dialogService, INavigationService navigationService)
         {
             _dialogService = dialogService;
+            _navigationService = navigationService;
             UpcomingMovies = new ObservableCollection<Movie>();
             GetUpcomingMovies();
+            MovieDetailsCommand = new DelegateCommand(MovieDetails);
+            Title = "ArcTouch - Movies";
+        }
+
+        private void MovieDetails()
+        {
+            var navigationParams = new NavigationParameters();
+            navigationParams.Add("movie", SelectedMovie);
+            _navigationService.NavigateAsync("MovieDetailsPage", navigationParams);
         }
 
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
-            
+
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
         {
-            
+
         }
 
         private async Task GetUpcomingMovies()

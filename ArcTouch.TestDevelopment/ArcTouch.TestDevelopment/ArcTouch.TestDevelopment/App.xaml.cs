@@ -19,6 +19,7 @@ namespace ArcTouch.TestDevelopment
         {
             Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<MainPage>();
+            Container.RegisterTypeForNavigation<MovieDetailsPage>();
         }
     }
 }
