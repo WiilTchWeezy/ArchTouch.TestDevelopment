@@ -40,11 +40,11 @@ namespace ArcTouch.TestDevelopment.ViewModels
             set
             {
                 if (SetProperty(ref _selectedMovie, value))
-                    MovieDetails();
+                    if (_selectedMovie != null)
+                        MovieDetails();
             }
         }
 
-        public DelegateCommand MovieDetailsCommand { get; set; }
 
         public MainPageViewModel(IPageDialogService dialogService, INavigationService navigationService)
         {
@@ -52,7 +52,6 @@ namespace ArcTouch.TestDevelopment.ViewModels
             _navigationService = navigationService;
             UpcomingMovies = new ObservableCollection<Movie>();
             GetUpcomingMovies();
-            MovieDetailsCommand = new DelegateCommand(MovieDetails);
             Title = "ArcTouch - Movies";
         }
 

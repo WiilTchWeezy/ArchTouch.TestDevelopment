@@ -5,7 +5,15 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ArcTouch.TestDevelopment.Views.MovieDetailsPage"
              Title="{Binding MovieTitle}">
-  <StackLayout>
-    <Label Text="{Binding MovieTitle}"/>
-  </StackLayout>
+  <ScrollView>
+    <StackLayout >
+      <Image Source="{Binding MovieImage}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></Image>
+      <Label Text="{Binding MovieTitle}" Margin="5, 0, 0, 5" FontAttributes="Bold" FontSize="16"/>
+      <Label Text="{Binding MovieReview}" Margin="5, 0, 0, 5" FontSize="13"/>
+      <StackLayout Orientation="Horizontal" Padding="5, 0, 0, 5">
+        <Label Text="Action" FontSize="12"/>
+        <Label Text="{Binding MovieReleaseDate}" HorizontalOptions="End" FontSize="12"/>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
 </ContentPage>
