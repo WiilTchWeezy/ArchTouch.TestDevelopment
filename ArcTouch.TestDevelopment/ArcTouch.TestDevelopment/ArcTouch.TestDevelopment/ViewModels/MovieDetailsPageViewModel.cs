@@ -16,6 +16,7 @@ namespace ArcTouch.TestDevelopment.ViewModels
         {
 
         }
+        #region BindableProperties
 
         private string _movieTitle;
         public string MovieTitle
@@ -36,7 +37,7 @@ namespace ArcTouch.TestDevelopment.ViewModels
         {
             get { return _movieReview; }
             set { SetProperty(ref _movieReview, value); }
-        }//MovieReleaseDate
+        }
 
         private string _movieReleaseDate;
         public string MovieReleaseDate
@@ -44,6 +45,14 @@ namespace ArcTouch.TestDevelopment.ViewModels
             get { return _movieReleaseDate; }
             set { SetProperty(ref _movieReleaseDate, value); }
         }
+
+        private string _movieGenre;
+        public string MovieGenre
+        {
+            get { return _movieGenre; }
+            set { SetProperty(ref _movieGenre, value); }
+        }
+        #endregion
 
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
@@ -56,12 +65,13 @@ namespace ArcTouch.TestDevelopment.ViewModels
             MovieTitle = _selectedMovie.title;
             MovieImage = APIHelper.GetMovieImage(_selectedMovie.poster_path);
             MovieReview = _selectedMovie.overview;
-            MovieReleaseDate = _selectedMovie.release_date;
+            MovieReleaseDate = String.Format("Release date : {0}", _selectedMovie.release_date);
+            MovieGenre = String.Format("Genre : {0}", _selectedMovie.genderDescription);
         }
 
         public void OnNavigatingTo(NavigationParameters parameters)
         {
-            
+
         }
     }
 }

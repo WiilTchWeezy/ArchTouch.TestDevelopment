@@ -8,12 +8,10 @@
   <ScrollView>
     <StackLayout >
       <Image Source="{Binding MovieImage}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></Image>
-      <Label Text="{Binding MovieTitle}" Margin="5, 0, 0, 5" FontAttributes="Bold" FontSize="16"/>
-      <Label Text="{Binding MovieReview}" Margin="5, 0, 0, 5" FontSize="13"/>
-      <StackLayout Orientation="Horizontal" Padding="5, 0, 0, 5">
-        <Label Text="Action" FontSize="12"/>
-        <Label Text="{Binding MovieReleaseDate}" HorizontalOptions="End" FontSize="12"/>
-      </StackLayout>
+      <Label Text="{Binding MovieTitle}" Margin="5, 0, 0, 5" FontAttributes="Bold" FontSize="22"/>
+      <Label Text="{Binding MovieReview}" Margin="5, 0, 0, 5" FontSize="16"/>
+      <Label Text="{Binding MovieGenre}" Margin="5, 0, 0, 5" FontSize="14"/>
+      <Label Text="{Binding MovieReleaseDate}" Margin="5, 0, 0, 5" FontSize="14"/>
     </StackLayout>
   </ScrollView>
 </ContentPage>

@@ -23,5 +23,6 @@ namespace ArcTouch.TestDevelopment.Service.ApiObjects
         public bool video { get; set; }
         public float vote_average { get; set; }
         public Uri movieImage { get; set; }
+        public string genderDescription { get; set; }
     }
 }

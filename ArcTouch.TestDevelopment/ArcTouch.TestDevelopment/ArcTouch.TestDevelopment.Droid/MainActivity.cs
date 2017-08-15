@@ -11,7 +11,7 @@ using Microsoft.Practices.Unity;
 
 namespace ArcTouch.TestDevelopment.Droid
 {
-    [Activity(Label = "ArcTouch.TestDevelopment", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "ArcTouch.TestDevelopment", Icon = "@drawable/icon", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

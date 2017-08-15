@@ -41,9 +41,12 @@
   <ItemGroup>
     <Compile Include="APIHelper.cs" />
     <Compile Include="ApiObjects\Error.cs" />
+    <Compile Include="ApiObjects\Gender.cs" />
+    <Compile Include="ApiObjects\GenreTvList.cs" />
     <Compile Include="ApiObjects\Movie.cs" />
     <Compile Include="ApiObjects\UpcomingMovies.cs" />
     <Compile Include="ApiResponses\ApiResponseBase.cs" />
+    <Compile Include="ApiResponses\GenreTvListResponse.cs" />
     <Compile Include="ApiResponses\UpcomingMoviesResponse.cs" />
     <Compile Include="Exceptions\BadRequestException.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />

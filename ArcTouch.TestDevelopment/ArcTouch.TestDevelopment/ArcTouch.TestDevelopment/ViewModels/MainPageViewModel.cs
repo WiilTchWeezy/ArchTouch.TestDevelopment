@@ -17,8 +17,14 @@ namespace ArcTouch.TestDevelopment.ViewModels
     {
         private IPageDialogService _dialogService;
         private INavigationService _navigationService;
-        public ObservableCollection<Movie> UpcomingMovies { get; set; }
 
+        public ObservableCollection<Movie> UpcomingMovies { get; set; }
+        public int Page { get; set; } = 1;
+        public bool HasMorePages { get; set; }
+
+        public List<Gender> Genders { get; set; }
+
+        #region BindablePropeties
         private bool _runningOperation;
         public bool RunningOperation
         {
@@ -44,15 +50,30 @@ namespace ArcTouch.TestDevelopment.ViewModels
                         MovieDetails();
             }
         }
+        #endregion
 
+        #region Commands
+        public DelegateCommand NewPageCommand { get; set; }
+
+        private void NewPage()
+        {
+            if (HasMorePages)
+            {
+                Page++;
+                GetUpcomingMoviesAsync(true);
+            }
+        }
+        #endregion
 
         public MainPageViewModel(IPageDialogService dialogService, INavigationService navigationService)
         {
             _dialogService = dialogService;
             _navigationService = navigationService;
             UpcomingMovies = new ObservableCollection<Movie>();
-            GetUpcomingMovies();
+            Genders = new List<Gender>();
+            NewPageCommand = new DelegateCommand(NewPage);
             Title = "ArcTouch - Movies";
+            GetUpcomingMoviesAsync();
         }
 
         private void MovieDetails()
@@ -72,22 +93,39 @@ namespace ArcTouch.TestDevelopment.ViewModels
 
         }
 
-        private async Task GetUpcomingMovies()
+        public void OnNavigatedTo(NavigationParameters parameters)
+        {
+
+        }
+
+        private async Task GetUpcomingMoviesAsync(bool fromPagination = false)
         {
             try
             {
                 RunningOperation = true;
-                var response = await APIHelper.GetUpcomingMovies();
+                if (fromPagination == false)
+                    await GetGenre();
+                var response = await APIHelper.GetUpcomingMovies(Page);
                 if (response.Error != null)
                 {
                     await _dialogService.DisplayAlertAsync("ArcTouch - Movies", response.Error.Message, "Cancel");
                 }
                 else
                 {
-                    foreach (var item in response.Response.results)
+                    if (response.Response.results.Count > 0)
                     {
-                        item.movieImage = APIHelper.GetMovieImage(item.backdrop_path);
-                        UpcomingMovies.Add(item);
+                        HasMorePages = true;
+                        foreach (var item in response.Response.results)
+                        {
+                            item.movieImage = APIHelper.GetMovieImage(item.backdrop_path);
+                            if (item.genre_ids.Length > 0 && Genders.Count > 0)
+                                item.genderDescription = Genders.Where(x => x.id == item.genre_ids[0]).Select(x => x.name).FirstOrDefault();
+                            UpcomingMovies.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        HasMorePages = false;
                     }
                 }
                 RunningOperation = false;
@@ -102,9 +140,34 @@ namespace ArcTouch.TestDevelopment.ViewModels
             }
         }
 
-        public void OnNavigatedTo(NavigationParameters parameters)
+        private async Task GetGenre()
         {
-
+            try
+            {
+                RunningOperation = true;
+                var response = await APIHelper.GetGenreMovieList();
+                if (response.Error != null)
+                {
+                    await _dialogService.DisplayAlertAsync("ArcTouch - Movies", response.Error.Message, "Cancel");
+                }
+                else
+                {
+                    foreach (var item in response.Response.genres)
+                    {
+                        Genders.Add(item);
+                    }
+                }
+                RunningOperation = false;
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.DisplayAlertAsync("ArcTouch - Movies", ex.Message, "Cancel");
+            }
+            finally
+            {
+                RunningOperation = false;
+            }
         }
+
     }
 }

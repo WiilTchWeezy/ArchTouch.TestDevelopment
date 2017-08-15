@@ -93,12 +93,21 @@ namespace ArcTouch.TestDevelopment.Service
             };
         }
 
-        public static async Task<UpcomingMoviesResponse> GetUpcomingMovies()
+        public static async Task<UpcomingMoviesResponse> GetUpcomingMovies(int page)
         {
             using (var httpClient = CreateClient())
             {
-                var response = await httpClient.GetAsync(apiAddress + "/movie/upcoming?api_key=" + apiKey);
+                var response = await httpClient.GetAsync(apiAddress + "/movie/upcoming?api_key=" + apiKey + "&page=" + page);
                 return await GetResponseAsync<UpcomingMoviesResponse, UpcomingMovies>(response);
+            }
+        }
+
+        public static async Task<GenreTvListResponse> GetGenreMovieList()
+        {
+            using (var httpClient = CreateClient())
+            {
+                var response = await httpClient.GetAsync(apiAddress + "/genre/movie/list?api_key=" + apiKey);
+                return await GetResponseAsync<GenreTvListResponse, GenreTvList>(response);
             }
         }
 
