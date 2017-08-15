@@ -12,7 +12,7 @@ namespace ArcTouch.TestDevelopment
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync("NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");
+            NavigationService.NavigateAsync("NavigationPage/MainPage?title=ArcTouch - Movies");
         }
 
         protected override void RegisterTypes()
