@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ArcTouch.TestDevelopment.Views.MovieDetailsPage"
+             Title="{Binding MovieTitle}">
+  <ScrollView>
+    <StackLayout >
+      <Image Source="{Binding MovieImage}" Aspect="Fill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></Image>
+      <Label Text="{Binding MovieTitle}" Margin="5, 0, 0, 5" FontAttributes="Bold" FontSize="22"/>
+      <Label Text="{Binding MovieReview}" Margin="5, 0, 0, 5" FontSize="16"/>
+      <Label Text="{Binding MovieGenre}" Margin="5, 0, 0, 5" FontSize="14"/>
+      <Label Text="{Binding MovieReleaseDate}" Margin="5, 0, 0, 5" FontSize="14"/>
+    </StackLayout>
+  </ScrollView>
+</ContentPage>

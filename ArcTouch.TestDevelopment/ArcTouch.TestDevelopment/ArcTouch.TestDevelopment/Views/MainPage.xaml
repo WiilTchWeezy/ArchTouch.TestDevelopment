@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ArcTouch.TestDevelopment.Views.MainPage"
+             xmlns:Controls="clr-namespace:ArcTouch.TestDevelopment.Views.Controls;assembly=ArcTouch.TestDevelopment"
+             Title="{Binding Title}">
+  <Controls:CustomListView
+    RefreshCommand="{Binding RefreshCommand}"
+                    IsPullToRefreshEnabled="True"
+                    IsRefreshing="{Binding RunningOperation}"
+                    ItemsSource="{Binding UpcomingMovies}"
+                    SelectedItem="{Binding SelectedMovie}"
+                    VerticalOptions="FillAndExpand"
+                    HasUnevenRows="True"
+                    NewPageCommand="{Binding NewPageCommand}">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <Grid>
+            <Image Source="{Binding movieImage}" Aspect="Fill" Opacity="0.4" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></Image>
+            <StackLayout VerticalOptions="Center" Padding="5, 0, 0, 5">
+              <Label Text="{Binding title}" FontAttributes="Bold"  FontSize="14"/>
+              <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding genderDescription}" FontSize="12"/>
+                <Label Text="{Binding release_date}" FontSize="12"/>
+              </StackLayout>
+            </StackLayout>
+          </Grid>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </Controls:CustomListView>
+</ContentPage>
